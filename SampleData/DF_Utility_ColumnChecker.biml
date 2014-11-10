@@ -1,0 +1,55 @@
+﻿<# var projectGuid = Guid.NewGuid().ToString("N"); #>
+<ScriptComponentTransformation Name="FireAssert_<#=guid#>" ProjectCoreName="SC_<#=projectGuid#>">
+	<ScriptComponentProject>
+		<ScriptComponentProject ProjectCoreName="SC_<#=projectGuid#>" Name="FireAssertProject_<#=guid#>">
+		    <AssemblyReferences>
+		        <AssemblyReference AssemblyPath="Microsoft.SqlServer.DTSPipelineWrap.dll" />
+		        <AssemblyReference AssemblyPath="Microsoft.SqlServer.DTSRuntimeWrap.dll" />
+		        <AssemblyReference AssemblyPath="Microsoft.SqlServer.PipelineHost.dll" />
+		        <AssemblyReference AssemblyPath="Microsoft.SqlServer.TxScript.dll" />
+		        <AssemblyReference AssemblyPath="System.dll" />
+		        <AssemblyReference AssemblyPath="System.Data.dll" />
+		        <AssemblyReference AssemblyPath="System.Windows.Forms.dll" />
+		        <AssemblyReference AssemblyPath="System.Xml.dll" />
+		    </AssemblyReferences>
+			<InputBuffer Name="Input0">
+				<Columns>
+					<Column Name="<#=guid#>" DataType="Boolean" />
+				</Columns>
+			</InputBuffer>
+		    <OutputBuffers>
+		        <OutputBuffer Name="Output0" />
+		    </OutputBuffers>
+		    <Files>
+		        <File Path="AssemblyInfo.cs">using System.Reflection;
+		using System.Runtime.CompilerServices;
+
+		[assembly: AssemblyTitle("SC_<#=projectGuid#>.csproj")]
+		[assembly: AssemblyDescription("")]
+		[assembly: AssemblyConfiguration("")]
+		[assembly: AssemblyCompany("Varigence")]
+		[assembly: AssemblyProduct("SC_<#=projectGuid#>.csproj")]
+		[assembly: AssemblyCopyright("Copyright @ Varigence 2011")]
+		[assembly: AssemblyTrademark("")]
+		[assembly: AssemblyCulture("")]
+		[assembly: AssemblyVersion("1.0.*")]</File>
+		        <File Path="main.cs">using System;
+		using System.Data;
+		using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+		using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+		[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+		public class ScriptMain : UserComponent
+		{
+		    public override void Input0_ProcessInputRow(Input0Buffer Row)
+		    {
+				if (!Row.<#=guid#>)
+				{
+					throw new Exception("<#=assert.GetValue("Message")#>");
+				}
+		    }
+		 }</File>
+		    </Files>
+		</ScriptComponentProject>
+    </ScriptComponentProject>
+</ScriptComponentTransformation>

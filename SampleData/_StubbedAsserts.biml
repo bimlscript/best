@@ -1,0 +1,62 @@
+﻿<#@ template tier="999" #>
+
+<#@ include file="Environment.biml" #>
+
+<# var allAsserts = TestMetadataLoader.Load(metadataSourceType, metadataSource); #>
+<# var stubbedAsserts = allAsserts.SelectMany(i => i.Value).Where(i => i.HasStub); #>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+<# if (stubbedAsserts.Any()) { #>
+    <Packages>
+		<Package Name="StubbedTests" ConstraintMode="Parallel">
+			<Tasks>
+				<# foreach (var assert in stubbedAsserts) { #> 
+				<#var guid = "z" + Guid.NewGuid().ToString("N"); #>
+				<Dataflow Name="StubbedAssert_<#=guid#>">
+					<Transformations>
+						<OleDbSource Name="StubExtract_<#=guid#>" ConnectionName="<#=assert.GetValue("StubConnectionName")#>">
+							<DirectInput><#=assert.GetValue("StubQuery")#></DirectInput>
+                        </OleDbSource>
+						<# var target = RootNode.Packages.SelectMany(p => p.AllDefinedSuccessors()).OfType<AstNamedNode>().FirstOrDefault(i => i.ScopedName == assert.GetValue("Target")); #>
+						<# if (target != null) { #>
+						<#= target.GetBiml() #>
+						<# } #>
+						<DerivedColumns Name="CheckAssert_<#=guid#>">
+							<Columns>
+								<Column Name="<#=guid#>" DataType="Boolean">(<#=assert.GetValue("Left")#>)==(<#=assert.GetValue("Right")#>)</Column> 
+						    </Columns>
+						</DerivedColumns>
+						<#@ include file="DF_Utility_ColumnChecker.biml"#>
+                    </Transformations>
+                </Dataflow>
+				<# } #>
+            </Tasks>
+			<# if (!string.IsNullOrEmpty(auditTableConnectionString)) { #>
+			   <Events>
+                <Event Name="OnError" ConstraintMode="Parallel" EventType="OnError">
+                    <Tasks>
+                        <ExecuteSQL Name="LOG ERROR TO AUDIT TABLE" ConnectionName="_AuditTableConnection">
+                            <DirectInput>exec [Audit].[uspHandleOnErrorEvent]  ?,?,?,?,?</DirectInput>
+                            <Parameters>
+                                <Parameter Name="0" VariableName="System.ExecutionInstanceGUID" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                                <Parameter Name="1" VariableName="System.TaskName" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                                <Parameter Name="2" VariableName="System.TaskID" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                                <Parameter Name="3" VariableName="System.ErrorCode" DataType="Int32" />
+                                <Parameter Name="4" VariableName="System.ErrorDescription" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                            </Parameters>
+                        </ExecuteSQL>
+                    </Tasks>
+                </Event>
+            </Events>
+			<# } #>
+        </Package>
+    </Packages>
+	<Connections>
+		<# if (!string.IsNullOrEmpty(auditTableConnectionString)) { #>
+		<Connection Name="_AuditTableConnection" ConnectionString="<#=auditTableConnectionString#>" />
+		<# } #>
+    </Connections>
+<# } #>
+</Biml>
+
+<#@ include file="MetadataUtility.biml" #>

@@ -1,0 +1,201 @@
+﻿<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Xml.XPath" #>
+<#@ import namespace="System.Data" #>
+
+<#+
+public static class TestMetadataLoader
+{
+  public static Dictionary<string, IList<AssertWrapper>> Load(string metadataSourceType, string metadataSource)
+  {
+	  _connections = new Dictionary<string, string>();
+    if (metadataSourceType == "Excel")
+    {
+      return FromExcel(metadataSource);
+    }
+    else if (metadataSourceType == "Xml")
+    {
+      return FromXml(metadataSource);
+    }
+	
+	return null;
+  }
+
+	public static Dictionary<string, IList<AssertWrapper>> FromExcel(string filePath)
+	{
+		var result = new Dictionary<string, IList<AssertWrapper>>();
+		var connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES\"";
+		foreach (var sheetName in GetExcelWorksheetNames(connectionString))
+		{
+			if (sheetName == "Connections$")
+			{
+				var connectionDataSet = ExternalDataAccess.GetDataTable(connectionString, "SELECT * FROM [" + sheetName + "]");
+				foreach (DataRow connectionDataRow in connectionDataSet.Rows)
+				{
+					_connections[connectionDataRow["ConnectionName"].ToString()] = connectionDataRow["ConnectionString"].ToString();
+                }
+            }
+			else
+			{
+				var assertType = sheetName.Substring(0, sheetName.Length - 1);
+				var assertTypeDataSet = ExternalDataAccess.GetDataTable(connectionString, "SELECT * FROM [" + sheetName + "]");
+				foreach (DataRow assertDataRow in assertTypeDataSet.Rows)
+				{
+					var excelAssert = new ExcelAssertWrapper(assertType, assertDataRow);
+					if (!result.ContainsKey(excelAssert.SourceName))
+					{
+						result.Add(excelAssert.SourceName, new List<AssertWrapper>());
+		            }
+					
+					result[excelAssert.SourceName].Add(excelAssert);
+				}	
+			}
+        }
+		
+		return result;
+   //if (myAsserts.Count == 0) { throw new Exception("No test metadata found!"); }
+ 	}
+	
+	private static IEnumerable<string> GetExcelWorksheetNames(string connectionString)
+	{
+		var worksheetNames = new List<string>();
+		using (var oleDbConnection = new System.Data.OleDb.OleDbConnection(connectionString))
+		{
+			oleDbConnection.Open();
+			var schemaTable = oleDbConnection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Tables, null);
+			foreach (DataRow worksheetRow in schemaTable.Rows)
+			{
+				var sheetName = worksheetRow["TABLE_NAME"].ToString();
+				if (sheetName.EndsWith("$"))
+				{
+					worksheetNames.Add(sheetName);
+				}
+            }
+        }
+		
+		return worksheetNames;
+    }
+	
+	public static Dictionary<string, IList<AssertWrapper>> FromXml(string filePath)
+	{
+		var result = new Dictionary<string, IList<AssertWrapper>>();
+		var doc = XDocument.Load(filePath);
+		foreach (var assertElement in doc.XPathSelectElements("/Asserts").Elements()) 
+		{
+			var xmlAssert = new XmlAssertWrapper(assertElement);
+			if (!result.ContainsKey(xmlAssert.SourceName))
+			{
+				result.Add(xmlAssert.SourceName, new List<AssertWrapper>());
+            }
+			
+			result[xmlAssert.SourceName].Add(xmlAssert);
+		}
+
+		return result;
+    }
+	
+	private static Dictionary<string, string> _connections;
+	
+	public static Dictionary<string, string> Connections 
+	{
+		get { return _connections; }
+    }
+}
+
+public abstract class AssertWrapper
+{
+	public abstract string AssertType { get; }
+  
+	public abstract string GetValue(string propertyName);
+  
+  public bool HasStub 
+  { 
+    get { return !IsNullOrWhitespace(GetValue("StubQuery")); } 
+  }
+  
+  public string SourceName
+  {
+    get { return GetValue("Target").Substring(GetValue("Target").LastIndexOf('.')+1); }
+  }
+
+    public static bool IsNullOrWhitespace(string s)
+    {
+      if (s == null) return true;
+
+      for (var i = 0; i < s.Length; i++)
+      {
+        if (!char.IsWhiteSpace(s, i))
+        {
+          return false;
+        }
+      }
+
+      return true;
+    }
+}
+
+public class ExcelAssertWrapper : AssertWrapper
+{
+	private DataRow _dataRow;
+	
+	private string _assertType;
+
+	public ExcelAssertWrapper(string assertType, DataRow dataRow)
+	{
+		_dataRow = dataRow;
+		_assertType = assertType;
+    }
+	
+	public override string AssertType
+	{
+		get { return _assertType; }
+    }
+	
+	public override string GetValue(string propertyName)
+	{
+		try
+		{
+			return _dataRow[propertyName].ToString();
+		}
+		catch (Exception)
+		{
+			return string.Empty;
+        }
+    }
+}
+
+public class XmlAssertWrapper : AssertWrapper
+{
+	private XElement _element;
+	
+	private string _assertType;
+	
+	public XmlAssertWrapper(XElement element)
+	{
+		_element = element;
+		_assertType = element.Name.LocalName;
+    }
+	
+	public override string AssertType
+	{
+		get { return _assertType; }
+    }
+	
+	public override string GetValue(string propertyName)
+	{
+		var attribute = _element.Attribute(propertyName);
+		if (attribute != null)
+		{
+			return attribute.Value;
+        }
+		
+		var childElement = _element.Element(propertyName);
+		if (childElement != null)
+		{
+			return childElement.Value;
+        }
+		
+		return string.Empty;
+    }
+}
+
+#>

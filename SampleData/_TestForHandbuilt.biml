@@ -1,0 +1,58 @@
+﻿<#@ include file="Environment.biml" #>
+
+<# var myAsserts = TestMetadataLoader.Load(metadataSourceType, metadataSource); #>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	<Packages>
+		<Package Name="MasterTestPackage" ConstraintMode="Parallel">
+			<Variables>
+				<Variable Name="SourceTaskName" DataType="String" InheritFromPackageParentConfigurationString="SourceName">_</Variable>
+            </Variables>
+			<Tasks>
+				<Container Name="RootDelegator" ConstraintMode="Parallel" />
+				<# foreach (var assertGroup in myAsserts) { #>
+				<Container Name="<#=assertGroup.Key#>_Tests" ConstraintMode="Parallel">
+					<PrecedenceConstraints LogicalType="And">
+						<Inputs>
+							<Input OutputPathName="RootDelegator.Output" EvaluationOperation="Expression" Expression="@[User::SourceTaskName] == &quot;<#=assertGroup.Key.Substring(assertGroup.Key.LastIndexOf('.')+1)#>&quot;" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+					<Tasks>
+						<# foreach (var assert in assertGroup.Value.Where(a => !a.HasStub)) { #>
+							<#@ include file="CF.biml" #>
+						<# } #>
+					</Tasks>
+                </Container>
+				<# } #>
+            </Tasks>
+			<# if (!string.IsNullOrEmpty(auditTableConnectionString)) { #>
+			   <Events>
+                <Event Name="OnError" ConstraintMode="Parallel" EventType="OnError">
+                    <Tasks>
+                        <ExecuteSQL Name="LOG ERROR TO AUDIT TABLE" ConnectionName="_AuditTableConnection">
+                            <DirectInput>exec [Audit].[uspHandleOnErrorEvent]  ?,?,?,?,?</DirectInput>
+                            <Parameters>
+                                <Parameter Name="0" VariableName="System.ExecutionInstanceGUID" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                                <Parameter Name="1" VariableName="System.TaskName" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                                <Parameter Name="2" VariableName="System.TaskID" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                                <Parameter Name="3" VariableName="System.ErrorCode" DataType="Int32" />
+                                <Parameter Name="4" VariableName="System.ErrorDescription" Length="-1" DataType="AnsiString" DataTypeCodeOverride="129" />
+                            </Parameters>
+                        </ExecuteSQL>
+                    </Tasks>
+                </Event>
+            </Events>
+			<# } #>
+        </Package>
+    </Packages>
+	<Connections>
+		<# if (!string.IsNullOrEmpty(auditTableConnectionString)) { #>
+		<Connection Name="_AuditTableConnection" ConnectionString="<#=auditTableConnectionString#>" />
+		<# } #>
+		<# foreach (var connectionPair in TestMetadataLoader.Connections) { #>
+		<Connection Name="<#=connectionPair.Key#>" ConnectionString="<#=connectionPair.Value#>" />
+		<# } #>
+    </Connections>
+</Biml>
+
+<#@ include file="MetadataUtility.biml" #>

@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="11/07/2014 17:05:16" DTS:CreationName="SSIS.Package.3" DTS:CreatorComputerName="6WK9CS1-PC" DTS:CreatorName="JulieSmith" DTS:DTSID="{44D3EDF6-3971-495E-AFBD-0A8BB29A3F1A}" DTS:ExecutableType="SSIS.Package.3" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="BimlLoadTableNames" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{04A5EAE3-3DA9-4D48-B7AA-3832459DF25F}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{F0C35871-457B-4C27-9639-541F1C51B669}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="Provider=SQLNCLI11.1;Server=localhost\jas2012;Initial Catalog=DataPatterns;Integrated Security=SSPI;">
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="SSIS.Pipeline.3" DTS:DTSID="{3255B913-82F7-41C5-BB80-70232C029AF0}" DTS:ExecutableType="SSIS.Pipeline.3" DTS:LocaleID="-1" DTS:ObjectName="DataflowTaskCopy" DTS:refId="Package\DataflowTaskCopy" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" version="1">
+          <components>
+            <component componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="olesrc tablenames" refId="Package\DataflowTaskCopy\olesrc tablenames" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{F0C35871-457B-4C27-9639-541F1C51B669}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DataflowTaskCopy\olesrc tablenames.Connections[OleDbConnection]">
+                </connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="256" name="TableName" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].ExternalColumns[TableName]">
+                    </externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="259" name="PrefixedTableName" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].ExternalColumns[PrefixedTableName]">
+                    </externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="Hardcoded" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].ExternalColumns[Hardcoded]">
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].ExternalColumns[TableName]" length="256" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[TableName]" name="TableName" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[TableName]" truncationRowDisposition="FailComponent">
+                    </outputColumn>
+                    <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].ExternalColumns[PrefixedTableName]" length="259" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[PrefixedTableName]" name="PrefixedTableName" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[PrefixedTableName]" truncationRowDisposition="FailComponent">
+                    </outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].ExternalColumns[Hardcoded]" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[Hardcoded]" name="Hardcoded" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[Hardcoded]" truncationRowDisposition="FailComponent">
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="256" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[TableName]" name="TableName" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[TableName]">
+                    </outputColumn>
+                    <outputColumn dataType="wstr" length="259" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[PrefixedTableName]" name="PrefixedTableName" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[PrefixedTableName]">
+                    </outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[Hardcoded]" name="Hardcoded" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[Hardcoded]">
+                    </outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[ErrorCode]" specialFlags="1">
+                    </outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Error].Columns[ErrorColumn]" specialFlags="2">
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">dbo.TableNames</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">
+                </property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+                </property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable">
+                </property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">0</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping">
+                </property>
+              </properties>
+            </component>
+            <component componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}" contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0" name="DER Prefix" refId="Package\DataflowTaskCopy\DER Prefix" usesDispositions="true">
+              <inputs>
+                <input name="olesrc tablenames_Output_DER Prefix" refId="Package\DataflowTaskCopy\DER Prefix.Inputs[olesrc tablenames_Output_DER Prefix]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="256" cachedName="TableName" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[TableName]" refId="Package\DataflowTaskCopy\DER Prefix.Inputs[olesrc tablenames_Output_DER Prefix].Columns[TableName]">
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" name="Output" refId="Package\DataflowTaskCopy\DER Prefix.Outputs[Output]" synchronousInputId="Package\DataflowTaskCopy\DER Prefix.Inputs[olesrc tablenames_Output_DER Prefix]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" errorOrTruncationOperation="Computation" errorRowDisposition="FailComponent" length="259" lineageId="Package\DataflowTaskCopy\DER Prefix.Outputs[Output].Columns[PrefixedTableName]" name="PrefixedTableName" refId="Package\DataflowTaskCopy\DER Prefix.Outputs[Output].Columns[PrefixedTableName]" truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property containsID="true" dataType="System.String" description="Derived Column Expression" name="Expression">"tbl" + #{Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[TableName]}</property>
+                        <property containsID="true" dataType="System.String" description="Derived Column Friendly Expression" expressionType="Notify" name="FriendlyExpression">"tbl" + TableName</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\DataflowTaskCopy\DER Prefix.Outputs[Error]" synchronousInputId="Package\DataflowTaskCopy\DER Prefix.Inputs[olesrc tablenames_Output_DER Prefix]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\DER Prefix.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DataflowTaskCopy\DER Prefix.Outputs[Error].Columns[ErrorCode]" specialFlags="1">
+                    </outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\DER Prefix.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DataflowTaskCopy\DER Prefix.Outputs[Error].Columns[ErrorColumn]" specialFlags="2">
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}" contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0" name="DER TestValue" refId="Package\DataflowTaskCopy\DER TestValue" usesDispositions="true">
+              <inputs>
+                <input name="DER Prefix_Output_DER TestValue" refId="Package\DataflowTaskCopy\DER TestValue.Inputs[DER Prefix_Output_DER TestValue]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" name="Output" refId="Package\DataflowTaskCopy\DER TestValue.Outputs[Output]" synchronousInputId="Package\DataflowTaskCopy\DER TestValue.Inputs[DER Prefix_Output_DER TestValue]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Computation" errorRowDisposition="FailComponent" lineageId="Package\DataflowTaskCopy\DER TestValue.Outputs[Output].Columns[Hardcoded]" name="Hardcoded" refId="Package\DataflowTaskCopy\DER TestValue.Outputs[Output].Columns[Hardcoded]" truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property dataType="System.String" description="Derived Column Expression" name="Expression">256</property>
+                        <property dataType="System.String" description="Derived Column Friendly Expression" expressionType="Notify" name="FriendlyExpression">256</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\DataflowTaskCopy\DER TestValue.Outputs[Error]" synchronousInputId="Package\DataflowTaskCopy\DER TestValue.Inputs[DER Prefix_Output_DER TestValue]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\DER TestValue.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DataflowTaskCopy\DER TestValue.Outputs[Error].Columns[ErrorCode]" specialFlags="1">
+                    </outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\DER TestValue.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DataflowTaskCopy\DER TestValue.Outputs[Error].Columns[ErrorColumn]" specialFlags="2">
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="oleDest TableNames" refId="Package\DataflowTaskCopy\oleDest TableNames" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{F0C35871-457B-4C27-9639-541F1C51B669}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DataflowTaskCopy\oleDest TableNames.Connections[OleDbConnection]">
+                </connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="DER TestValue_Output_oleDest TableNames" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="256" name="TableName" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].ExternalColumns[TableName]">
+                    </externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="259" name="PrefixedTableName" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].ExternalColumns[PrefixedTableName]">
+                    </externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="Hardcoded" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].ExternalColumns[Hardcoded]">
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="Hardcoded" externalMetadataColumnId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].ExternalColumns[Hardcoded]" lineageId="Package\DataflowTaskCopy\DER TestValue.Outputs[Output].Columns[Hardcoded]" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].Columns[Hardcoded]">
+                    </inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="259" cachedName="PrefixedTableName" externalMetadataColumnId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].ExternalColumns[PrefixedTableName]" lineageId="Package\DataflowTaskCopy\DER Prefix.Outputs[Output].Columns[PrefixedTableName]" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].Columns[PrefixedTableName]">
+                    </inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="256" cachedName="TableName" externalMetadataColumnId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].ExternalColumns[TableName]" lineageId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output].Columns[TableName]" refId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames].Columns[TableName]">
+                    </inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\DataflowTaskCopy\oleDest TableNames.Outputs[Error]" synchronousInputId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames]">
+                  <externalMetadataColumns>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\oleDest TableNames.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DataflowTaskCopy\oleDest TableNames.Outputs[Error].Columns[ErrorCode]" specialFlags="1">
+                    </outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DataflowTaskCopy\oleDest TableNames.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DataflowTaskCopy\oleDest TableNames.Outputs[Error].Columns[ErrorColumn]" specialFlags="2">
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">dbo.TableNames</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">
+                </property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+                </property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\DataflowTaskCopy\DER Prefix.Inputs[olesrc tablenames_Output_DER Prefix]" name="olesrc tablenames_Output_DER Prefix" refId="Package\DataflowTaskCopy.Paths[olesrc tablenames_Output_DER Prefix]" startId="Package\DataflowTaskCopy\olesrc tablenames.Outputs[Output]">
+            </path>
+            <path endId="Package\DataflowTaskCopy\DER TestValue.Inputs[DER Prefix_Output_DER TestValue]" name="DER Prefix_Output_DER TestValue" refId="Package\DataflowTaskCopy.Paths[DER Prefix_Output_DER TestValue]" startId="Package\DataflowTaskCopy\DER Prefix.Outputs[Output]">
+            </path>
+            <path endId="Package\DataflowTaskCopy\oleDest TableNames.Inputs[DER TestValue_Output_oleDest TableNames]" name="DER TestValue_Output_oleDest TableNames" refId="Package\DataflowTaskCopy.Paths[DER TestValue_Output_oleDest TableNames]" startId="Package\DataflowTaskCopy\DER TestValue.Outputs[Output]">
+            </path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:Property DTS:Name="PackageFormatVersion">6</DTS:Property>
+</DTS:Executable>

@@ -1,0 +1,9 @@
+﻿<#
+var metadataSourceType = "Excel";
+var metadataSource = @"C:\Users\6WK9CS1\Dropbox\NewApproach.xlsx";
+var auditTableConnectionString = @"Provider=SQLNCLI11.1;Server=localhost\jas2012;Initial Catalog=DataPatterns;Integrated Security=SSPI;";
+
+//var metadataSourceType = "Xml";
+//var metadataSource = @"C:\0NewApproach\test.xml";
+//var metadataSource = @"C:\Users\6WK9CS1\Dropbox\NewApproachWithStubs.xlsx";
+#>

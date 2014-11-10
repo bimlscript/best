@@ -1,0 +1,17 @@
+﻿<# if (assert.AssertType == "RowCountAssert") { var name = "CF_RowCountAssert_" + Guid.NewGuid().ToString(); #>
+<ExecuteSQL Name="<#=name#>" ConnectionName="<#=assert.GetValue("ConnectionName")#>">
+	<DirectInput>IF(NOT((SELECT COUNT(1) FROM <#=assert.GetValue("LeftTableName")#> WHERE ModifiedDateTime >= '<#=System.DateTime.UtcNow.AddDays(-10)#>')=(SELECT COUNT(1) FROM <#=assert.GetValue("RightTableName")#>  WHERE <#=assert.GetValue("RightWhere")#>))) RAISERROR (N'<#=assert.GetValue("Message")#>', 18, 1);</DirectInput>
+</ExecuteSQL>
+<# } else if (assert.AssertType == "BusinessKeyAssert") { var name = "CF_BusinessKeyAssert_" + Guid.NewGuid().ToString(); #>
+<ExecuteSQL Name="<#=name#>" ConnectionName="<#=assert.GetValue("ConnectionName")#>">
+	<DirectInput>IF ((SELECT COUNT(1) FROM (SELECT <#=assert.GetValue("Columns")#> FROM <#=assert.GetValue("TableName")#> GROUP BY <#=assert.GetValue("Columns")#> HAVING COUNT(1) > 1) AS IntegrationTestDuplicateKeys) > 0) RAISERROR (N'<#=assert.GetValue("Message")#>', 18, 1); </DirectInput>
+</ExecuteSQL>
+<# } else if (assert.AssertType == "ForeignKeyAssert") { var name = "CF_BusinessKeyAssert_" + Guid.NewGuid().ToString(); #>
+<ExecuteSQL Name="<#=name#>" ConnectionName="<#=assert.GetValue("ConnectionName")#>">
+	<DirectInput>IF ((SELECT COUNT(1) FROM (SELECT <#=assert.GetValue("Columns")#> FROM <#=assert.GetValue("TableName")#> GROUP BY <#=assert.GetValue("Columns")#> HAVING COUNT(1) > 1) AS IntegrationTestDuplicateKeys) > 0) RAISERROR (N'<#=assert.GetValue("Message")#>', 18, 1); </DirectInput>
+</ExecuteSQL>
+<# } else if (assert.AssertType == "Assert") { var name = "SqlAssert_" + Guid.NewGuid().ToString(); #>
+<ExecuteSQL Name="<#=name#>" ConnectionName="<#=assert.GetValue("ConnectionName")#>">
+	<DirectInput>IF(NOT((<#=assert.GetValue("Left")#>)=(<#=assert.GetValue("Right")#>))) RAISERROR (N'<#=assert.GetValue("Message")#>', 18, 1);</DirectInput>
+</ExecuteSQL>
+<# } #>

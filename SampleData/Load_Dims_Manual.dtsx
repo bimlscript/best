@@ -1,0 +1,881 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/3/2014 10:10:41 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="SCOTTVARTAB1"
+  DTS:CreatorName="REDMOND\v-srcurr"
+  DTS:DTSID="{BD606F20-9701-4AC5-81C3-BF81DB2DF55F}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Load_Dims_Manual"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="64"
+  DTS:VersionGUID="{8CC342F2-6B6C-413A-A7D7-C6CA7F7E40E8}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MasterTestPackage.dtsx]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{DB89CB35-54F3-4C26-BE65-3BDB551F4F27}"
+      DTS:ObjectName="MasterTestPackage.dtsx">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Users\6WK9CS1\Dropbox\Presentations\summit2014\unitIntegrationTesting\UnitTestingBidsHelper\UnitTestingBidsHelper\MasterTestPackage.dtsx" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Source]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{42E20542-C5F7-4F50-AB4B-E6D0C7A64CA0}"
+      DTS:ObjectName="Source">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost\jas2012;Initial Catalog=DataPatterns;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DimAccount"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F73C3EDD-8545-430A-AE96-B22952CAB3BE}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimAccount">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\DimAccount\DFT Load DimAccount2"
+          DTS:CreationName="SSIS.Pipeline.3"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{810E6D29-9159-4CD5-B731-94CE674FA571}"
+          DTS:ExecutableType="SSIS.Pipeline.3"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DFT Load DimAccount2"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination"
+                  componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DimAccount2]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Source]"
+                      connectionManagerRefId="Package.ConnectionManagers[Source]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ParentAccountKey]"
+                          cachedDataType="i4"
+                          cachedName="ParentAccountKey"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ParentAccountKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ParentAccountKey]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AccountCodeAlternateKey]"
+                          cachedDataType="i4"
+                          cachedName="AccountCodeAlternateKey"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountCodeAlternateKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountCodeAlternateKey]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ParentAccountCodeAlternateKey]"
+                          cachedDataType="i4"
+                          cachedName="ParentAccountCodeAlternateKey"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ParentAccountCodeAlternateKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ParentAccountCodeAlternateKey]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AccountDescription]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="AccountDescription"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountDescription]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountDescription]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AccountType]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="AccountType"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountType]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountType]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Operator]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="Operator"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Operator]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[Operator]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CustomMembers]"
+                          cachedDataType="wstr"
+                          cachedLength="300"
+                          cachedName="CustomMembers"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomMembers]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomMembers]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ValueType]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="ValueType"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValueType]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValueType]" />
+                        <inputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CustomMemberOptions]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="CustomMemberOptions"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomMemberOptions]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomMemberOptions]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountKey]"
+                          dataType="i4"
+                          name="AccountKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ParentAccountKey]"
+                          dataType="i4"
+                          name="ParentAccountKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountCodeAlternateKey]"
+                          dataType="i4"
+                          name="AccountCodeAlternateKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ParentAccountCodeAlternateKey]"
+                          dataType="i4"
+                          name="ParentAccountCodeAlternateKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountDescription]"
+                          dataType="wstr"
+                          length="100"
+                          name="AccountDescription" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AccountType]"
+                          dataType="wstr"
+                          length="50"
+                          name="AccountType" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Operator]"
+                          dataType="wstr"
+                          length="50"
+                          name="Operator" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomMembers]"
+                          dataType="wstr"
+                          length="300"
+                          name="CustomMembers" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValueType]"
+                          dataType="wstr"
+                          length="50"
+                          name="ValueType" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomMemberOptions]"
+                          dataType="wstr"
+                          length="200"
+                          name="CustomMemberOptions" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source"
+                  componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DimAccount]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Source]"
+                      connectionManagerRefId="Package.ConnectionManagers[Source]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountKey]"
+                          name="AccountKey"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ParentAccountKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ParentAccountKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ParentAccountKey]"
+                          name="ParentAccountKey"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountCodeAlternateKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountCodeAlternateKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountCodeAlternateKey]"
+                          name="AccountCodeAlternateKey"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ParentAccountCodeAlternateKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ParentAccountCodeAlternateKey]"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ParentAccountCodeAlternateKey]"
+                          name="ParentAccountCodeAlternateKey"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountDescription]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountDescription]"
+                          length="100"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountDescription]"
+                          name="AccountDescription"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountType]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountType]"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccountType]"
+                          name="AccountType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[Operator]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Operator]"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[Operator]"
+                          name="Operator"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomMembers]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomMembers]"
+                          length="300"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomMembers]"
+                          name="CustomMembers"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValueType]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ValueType]"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValueType]"
+                          name="ValueType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomMemberOptions]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomMemberOptions]"
+                          length="200"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomMemberOptions]"
+                          name="CustomMemberOptions"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountKey]"
+                          dataType="i4"
+                          name="AccountKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ParentAccountKey]"
+                          dataType="i4"
+                          name="ParentAccountKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountCodeAlternateKey]"
+                          dataType="i4"
+                          name="AccountCodeAlternateKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ParentAccountCodeAlternateKey]"
+                          dataType="i4"
+                          name="ParentAccountCodeAlternateKey" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountDescription]"
+                          dataType="wstr"
+                          length="50"
+                          name="AccountDescription" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccountType]"
+                          dataType="wstr"
+                          length="50"
+                          name="AccountType" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Operator]"
+                          dataType="wstr"
+                          length="50"
+                          name="Operator" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomMembers]"
+                          dataType="wstr"
+                          length="300"
+                          name="CustomMembers" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ValueType]"
+                          dataType="wstr"
+                          length="50"
+                          name="ValueType" />
+                        <externalMetadataColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomMemberOptions]"
+                          dataType="wstr"
+                          length="200"
+                          name="CustomMemberOptions" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountKey]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountKey]"
+                          name="AccountKey" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ParentAccountKey]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ParentAccountKey]"
+                          name="ParentAccountKey" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountCodeAlternateKey]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountCodeAlternateKey]"
+                          name="AccountCodeAlternateKey" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ParentAccountCodeAlternateKey]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ParentAccountCodeAlternateKey]"
+                          name="ParentAccountCodeAlternateKey" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountDescription]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountDescription]"
+                          name="AccountDescription" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountType]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccountType]"
+                          name="AccountType" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Operator]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Operator]"
+                          name="Operator" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomMembers]"
+                          dataType="wstr"
+                          length="300"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomMembers]"
+                          name="CustomMembers" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ValueType]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ValueType]"
+                          name="ValueType" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomMemberOptions]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomMemberOptions]"
+                          name="CustomMemberOptions" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\DimAccount\DFT Load DimAccount2.Paths[OLE DB Source Output]"
+                  endId="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\DimAccount\DFT Load DimAccount2\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAccount\SQL Truncate"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{9224237E-7AD2-4D42-9500-9F66A009AA64}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Truncate"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{42E20542-C5F7-4F50-AB4B-E6D0C7A64CA0}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.DimAccount2" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAccount.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{B975ED98-675D-4772-9B02-6E9EC015D825}"
+          DTS:From="Package\DimAccount\SQL Truncate"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\DimAccount\DFT Load DimAccount2" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SEQ Test DimCustomer2"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6AB5EE55-8C14-4E77-A2D4-BE8CA2373A37}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ Test DimCustomer2">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Test DimCustomer2\FAIL"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{76930913-C261-4727-813E-B809B38E65D5}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="FAIL"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{42E20542-C5F7-4F50-AB4B-E6D0C7A64CA0}"
+              SQLTask:SqlStatementSource="&#xA;    TRUNCATE TABLE DimCustomer2 &#xA;&#x9;GO&#xA;    SET NOCOUNT ON   &#xA;    INSERT  INTO DimCustomer2&#xA;            ( GeographyKey ,&#xA;              CustomerAlternateKey ,&#xA;              Title ,&#xA;              FirstName ,&#xA;              MiddleName ,&#xA;              LastName ,&#xA;              NameStyle ,&#xA;              BirthDate ,&#xA;              MaritalStatus ,&#xA;              Suffix ,&#xA;              Gender ,&#xA;              EmailAddress ,&#xA;              YearlyIncome ,&#xA;              TotalChildren ,&#xA;              NumberChildrenAtHome ,&#xA;              EnglishEducation ,&#xA;              SpanishEducation ,&#xA;              FrenchEducation ,&#xA;              EnglishOccupation ,&#xA;              SpanishOccupation ,&#xA;              FrenchOccupation ,&#xA;              HouseOwnerFlag ,&#xA;              NumberCarsOwned ,&#xA;              AddressLine1 ,&#xA;              AddressLine2 ,&#xA;              Phone ,&#xA;              DateFirstPurchase ,&#xA;              CommuteDistance&#xA;&#x9;        )&#xA;            SELECT  GeographyKey ,&#xA;                    CustomerAlternateKey ,&#xA;                    Title ,&#xA;                    FirstName ,&#xA;                    MiddleName ,&#xA;                    LastName ,&#xA;                    NameStyle ,&#xA;                    BirthDate ,&#xA;                    MaritalStatus ,&#xA;                    Suffix ,&#xA;                    Gender ,&#xA;                    EmailAddress ,&#xA;                    YearlyIncome ,&#xA;                    TotalChildren ,&#xA;                    NumberChildrenAtHome ,&#xA;                    EnglishEducation ,&#xA;                    SpanishEducation ,&#xA;                    FrenchEducation ,&#xA;                    EnglishOccupation ,&#xA;                    SpanishOccupation ,&#xA;                    FrenchOccupation ,&#xA;                    HouseOwnerFlag ,&#xA;                    NumberCarsOwned ,&#xA;                    AddressLine1 ,&#xA;                    AddressLine2 ,&#xA;                    Phone ,&#xA;                    DateFirstPurchase ,&#xA;                    CommuteDistance&#xA;            FROM    DimCustomer&#xA;            UNION ALL&#xA;            SELECT  GeographyKey ,&#xA;                    CustomerAlternateKey ,&#xA;                    Title ,&#xA;                    FirstName ,&#xA;                    MiddleName ,&#xA;                    LastName ,&#xA;                    NameStyle ,&#xA;                    BirthDate ,&#xA;                    MaritalStatus ,&#xA;                    Suffix ,&#xA;                    Gender ,&#xA;                    EmailAddress ,&#xA;                    YearlyIncome ,&#xA;                    TotalChildren ,&#xA;                    NumberChildrenAtHome ,&#xA;                    EnglishEducation ,&#xA;                    SpanishEducation ,&#xA;                    FrenchEducation ,&#xA;                    EnglishOccupation ,&#xA;                    SpanishOccupation ,&#xA;                    FrenchOccupation ,&#xA;                    HouseOwnerFlag ,&#xA;                    NumberCarsOwned ,&#xA;                    AddressLine1 ,&#xA;                    AddressLine2 ,&#xA;                    Phone ,&#xA;                    DateFirstPurchase ,&#xA;                    CommuteDistance&#xA;            FROM    DimCustomer&#xA;            WHERE   CustomerAlternateKey = 'AW00013740'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Test DimCustomer2\PASS"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{0FDB769D-CD53-4CE8-B9B0-0FEC7054C563}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="PASS"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{42E20542-C5F7-4F50-AB4B-E6D0C7A64CA0}"
+              SQLTask:SqlStatementSource="&#xA;    TRUNCATE TABLE DimCustomer2 &#xA;&#x9;GO&#xA;    SET NOCOUNT ON   &#xA;    INSERT  INTO DimCustomer2&#xA;            ( GeographyKey ,&#xA;              CustomerAlternateKey ,&#xA;              Title ,&#xA;              FirstName ,&#xA;              MiddleName ,&#xA;              LastName ,&#xA;              NameStyle ,&#xA;              BirthDate ,&#xA;              MaritalStatus ,&#xA;              Suffix ,&#xA;              Gender ,&#xA;              EmailAddress ,&#xA;              YearlyIncome ,&#xA;              TotalChildren ,&#xA;              NumberChildrenAtHome ,&#xA;              EnglishEducation ,&#xA;              SpanishEducation ,&#xA;              FrenchEducation ,&#xA;              EnglishOccupation ,&#xA;              SpanishOccupation ,&#xA;              FrenchOccupation ,&#xA;              HouseOwnerFlag ,&#xA;              NumberCarsOwned ,&#xA;              AddressLine1 ,&#xA;              AddressLine2 ,&#xA;              Phone ,&#xA;              DateFirstPurchase ,&#xA;              CommuteDistance&#xA;&#x9;        )&#xA;            SELECT  GeographyKey ,&#xA;                    CustomerAlternateKey ,&#xA;                    Title ,&#xA;                    FirstName ,&#xA;                    MiddleName ,&#xA;                    LastName ,&#xA;                    NameStyle ,&#xA;                    BirthDate ,&#xA;                    MaritalStatus ,&#xA;                    Suffix ,&#xA;                    Gender ,&#xA;                    EmailAddress ,&#xA;                    YearlyIncome ,&#xA;                    TotalChildren ,&#xA;                    NumberChildrenAtHome ,&#xA;                    EnglishEducation ,&#xA;                    SpanishEducation ,&#xA;                    FrenchEducation ,&#xA;                    EnglishOccupation ,&#xA;                    SpanishOccupation ,&#xA;                    FrenchOccupation ,&#xA;                    HouseOwnerFlag ,&#xA;                    NumberCarsOwned ,&#xA;                    AddressLine1 ,&#xA;                    AddressLine2 ,&#xA;                    Phone ,&#xA;                    DateFirstPurchase ,&#xA;                    CommuteDistance&#xA;            FROM    DimCustomer&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{CAC33525-2D5B-4D4D-B471-F56555E76F5E}"
+      DTS:From="Package\DimAccount"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQ Test DimCustomer2" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPostExecute]"
+      DTS:CreationName="OnPostExecute"
+      DTS:DTSID="{0FF8EEBD-9BA8-4405-AA58-B2ADB2FAD748}"
+      DTS:EventID="0"
+      DTS:EventName="OnPostExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{482E93A5-69FD-42A3-8072-9C2FF5C850AB}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\Execute Package Task"
+          DTS:CreationName="SSIS.ExecutePackageTask.3"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{071A1D4C-0EA9-4DEF-A8A1-5161D8257746}"
+          DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Execute Package Task"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <Connection>{DB89CB35-54F3-4C26-BE65-3BDB551F4F27}</Connection>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="190.4,41.6"
+          Id="Package\DimAccount\DFT Load DimAccount2"
+          TopLeft="13.1,115.1" />
+        <NodeLayout
+          Size="205.6,41.6"
+          Id="Package\DimAccount\SQL Truncate"
+          TopLeft="5.50000000000001,5.50000000000007" />
+        <EdgeLayout
+          Id="Package\DimAccount.PrecedenceConstraints[Constraint]"
+          TopLeft="108.3,47.1000000000001">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68.0000000000001"
+              Start="0,0"
+              End="0,60.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Disable SQL Truncate to TEST&#xA;This is to test hand built package This&#xA;is for Rowcount."
+          ParentId="Package\DimAccount"
+          FontInfo="{assembly:Null}"
+          Size="228.8,73.6"
+          Id="05670b10-2114-4da8-9eff-9d2e1abbe1a1"
+          TopLeft="223.82017089023,57.2767747521074" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="473.6,220"
+          Size="473.6,263.2"
+          Id="Package\DimAccount"
+          TopLeft="433.199028282895,5.50000000000003" />
+        <NodeLayout
+          Size="102.4,41.6"
+          Id="Package\SEQ Test DimCustomer2\FAIL"
+          TopLeft="5.49999999999999,14.7" />
+        <NodeLayout
+          Size="104,41.6"
+          Id="Package\SEQ Test DimCustomer2\PASS"
+          TopLeft="168.7,14.7" />
+        <AnnotationLayout
+          Text="Disable one and&#xA;Enable the other to Test&#xA;Duplicate BK TEst"
+          ParentId="Package\SEQ Test DimCustomer2"
+          FontInfo="{assembly:Null}"
+          Size="156.8,73.6"
+          Id="3f17d16f-d334-417c-8371-02952e727bd6"
+          TopLeft="333.3,5.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="496,120.8"
+          Size="496,164"
+          Id="Package\SEQ Test DimCustomer2"
+          TopLeft="428.152755961617,325.086713920313" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="673.075892122256,268.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.3867139203126"
+              Start="0,0"
+              End="0,48.8867139203126">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.8867139203126" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPostExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package.EventHandlers[OnPostExecute]\Execute Package Task"
+          TopLeft="147.534979998779,55.2112074886217" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DimAccount\DFT Load DimAccount2">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\DimAccount\DFT Load DimAccount2\OLE DB Source"
+          TopLeft="91,47" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination"
+          TopLeft="80,164.333333333333" />
+        <EdgeLayout
+          Id="Package\DimAccount\DFT Load DimAccount2.Paths[OLE DB Source Output]"
+          TopLeft="165.75,89">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75.3333333333333"
+              Start="0,0"
+              End="0,67.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimAccount\DFT Load DimAccount2\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimAccount\DFT Load DimAccount2\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

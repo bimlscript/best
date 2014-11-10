@@ -1,0 +1,11 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Packages>
+    <Package Name="Foo" ConstraintMode="Parallel">
+      <Tasks>
+        <# for (int i = 0; i < 10; i++) { #>
+        <Dataflow Name="Bar<#=i#>" />
+          <# } #>
+      </Tasks>
+    </Package>
+  </Packages>
+</Biml>

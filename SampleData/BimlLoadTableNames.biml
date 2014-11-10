@@ -1,0 +1,31 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Packages>
+    <Package Name="BimlLoadTableNames" ConstraintMode="Parallel">
+      <Tasks>
+        <Dataflow Name="DataflowTaskCopy">
+          <Transformations>
+            <OleDbSource Name="olesrc tablenames" ConnectionName="Source">
+              <ExternalTableInput Table="dbo.TableNames" />
+            </OleDbSource>
+            <DerivedColumns Name="DER Prefix">
+              <Columns>
+                <Column Name="PrefixedTableName" DataType="String" Length="259">"tbl" + TableName</Column>
+              </Columns>
+            </DerivedColumns>
+            <DerivedColumns Name="DER TestValue">
+              <Columns>
+                <Column Name="Hardcoded" DataType="Int32">256</Column>
+              </Columns>
+            </DerivedColumns>
+            <OleDbDestination Name="oleDest TableNames" ConnectionName="Source">
+              <ExternalTableOutput Table="dbo.TableNames" />
+            </OleDbDestination>
+          </Transformations>
+        </Dataflow>
+      </Tasks>
+    </Package>
+  </Packages>
+  <Connections>
+    <OleDbConnection Name="Source" ConnectionString="Provider=SQLNCLI11.1;Server=localhost\jas2012;Initial Catalog=DataPatterns;Integrated Security=SSPI;" />
+  </Connections>
+</Biml>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="11/07/2014 17:16:22" DTS:CreationName="SSIS.Package.3" DTS:CreatorComputerName="6WK9CS1-PC" DTS:CreatorName="JulieSmith" DTS:DTSID="{976D1C51-173F-49FE-84E0-ADDD73FC08F4}" DTS:EnableConfig="True" DTS:ExecutableType="SSIS.Package.3" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="MasterTestPackage" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{81EB1E32-B206-4289-8059-E0B2BA2C1B52}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Configurations>
+    <DTS:Configuration DTS:ConfigurationString="SourceName" DTS:ConfigurationVariable="\Package.Variables[User::SourceTaskName].Properties[Value]" DTS:CreationName="" DTS:DTSID="{E0D7B751-9030-45B3-87BE-1CFF6DD9EE67}" DTS:ObjectName="SourceTaskName">
+    </DTS:Configuration>
+  </DTS:Configurations>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{698CC92A-C014-443C-B0BD-288DB2071353}" DTS:ObjectName="_AuditTableConnection" DTS:refId="Package.ConnectionManagers[_AuditTableConnection]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="Provider=SQLNCLI11.1;Server=localhost\jas2012;Initial Catalog=DataPatterns;Integrated Security=SSPI;">
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{4AA2F4FC-5799-4726-A7C8-76E71429A415}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="Provider=SQLNCLI11.1;Server=localhost\jas2012;Initial Catalog=DataPatterns;Integrated Security=SSPI;">
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:EventHandlers>
+    <DTS:EventHandler DTS:CreationName="OnError" DTS:DTSID="{E26B9669-1A70-4CAD-B5E4-9B2FF4332474}" DTS:EventID="0" DTS:EventName="OnError" DTS:LocaleID="-1" DTS:refId="Package.EventHandlers[OnError]">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:DTSID="{47CAF2BD-0805-40CB-85F1-C73E3304A3E3}" DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:LocaleID="-1" DTS:ObjectName="LOG ERROR TO AUDIT TABLE" DTS:refId="Package.EventHandlers[OnError]\LOG ERROR TO AUDIT TABLE" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="_AuditTableConnection" SQLTask:SqlStatementSource="exec [Audit].[uspHandleOnErrorEvent]  ?,?,?,?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding SQLTask:DataType="129" SQLTask:DtsVariableName="System::ExecutionInstanceGUID" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1">
+              </SQLTask:ParameterBinding>
+              <SQLTask:ParameterBinding SQLTask:DataType="129" SQLTask:DtsVariableName="System::TaskName" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="-1">
+              </SQLTask:ParameterBinding>
+              <SQLTask:ParameterBinding SQLTask:DataType="129" SQLTask:DtsVariableName="System::TaskID" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="2" SQLTask:ParameterSize="-1">
+              </SQLTask:ParameterBinding>
+              <SQLTask:ParameterBinding SQLTask:DataType="3" SQLTask:DtsVariableName="System::ErrorCode" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="3" SQLTask:ParameterSize="0">
+              </SQLTask:ParameterBinding>
+              <SQLTask:ParameterBinding SQLTask:DataType="129" SQLTask:DtsVariableName="System::ErrorDescription" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="4" SQLTask:ParameterSize="-1">
+              </SQLTask:ParameterBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:Variables>
+        <DTS:Variable DTS:CreationName="" DTS:Description="The propagate property of the event" DTS:DTSID="{1636FFB4-F2D3-4488-815B-1313C25BD057}" DTS:IncludeInDebugDump="6789" DTS:Namespace="System" DTS:ObjectName="Propagate">
+          <DTS:VariableValue DTS:DataType="11">True</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{8DE910FC-6F46-43E7-9171-C81F3C5C6421}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:LocaleID="-1" DTS:ObjectName="RootDelegator" DTS:refId="Package\RootDelegator">
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{8ADCE2E8-22C6-4B70-86C8-CB439D8841ED}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:LocaleID="-1" DTS:ObjectName="SEQ Test DimCustomer2_Tests" DTS:refId="Package\SEQ Test DimCustomer2_Tests">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:DTSID="{28F7BC58-97D3-4313-826D-D5BBC04626D2}" DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:LocaleID="-1" DTS:ObjectName="CF_BusinessKeyAssert_7ea0a141-e3a4-401c-a368-1ec27046d6b9" DTS:refId="Package\SEQ Test DimCustomer2_Tests\CF_BusinessKeyAssert_7ea0a141-e3a4-401c-a368-1ec27046d6b9" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="Source" SQLTask:SqlStatementSource="IF ((SELECT COUNT(1) FROM (SELECT CustomerAlternateKey FROM DimCustomer2 GROUP BY CustomerAlternateKey HAVING COUNT(1) &gt; 1) AS IntegrationTestDuplicateKeys) &gt; 0) RAISERROR (N'I changed the msg Duplicate BK today Friday', 18, 1); " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{0CA7A383-DCC9-468B-9E57-6538BAFCF00B}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:LocaleID="-1" DTS:ObjectName="DFT Load DimAccount2_Tests" DTS:refId="Package\DFT Load DimAccount2_Tests">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:DTSID="{3A409871-6FD0-43F2-B788-C8E67C28ABEE}" DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:LocaleID="-1" DTS:ObjectName="CF_RowCountAssert_312680af-434d-4950-a6af-76089c3cce43" DTS:refId="Package\DFT Load DimAccount2_Tests\CF_RowCountAssert_312680af-434d-4950-a6af-76089c3cce43" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="Source" SQLTask:SqlStatementSource="IF(NOT((SELECT COUNT(1) FROM DimAccount WHERE ModifiedDateTime &gt;= '10/29/2014 01:16:21')=(SELECT COUNT(1) FROM DimAccount2  WHERE 2=2))) RAISERROR (N'Candy Julie shows you that  Rowcounts do not match', 18, 1);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{1D5D5FA8-723E-4B0E-9420-5FFCC985E004}" DTS:EvalOp="1" DTS:Expression="@[User::SourceTaskName] == &quot;SEQ Test DimCustomer2&quot;" DTS:From="Package\RootDelegator" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_RootDelegator_To_SEQ Test DimCustomer2_Tests" DTS:refId="Package.PrecedenceConstraints[Constraint_RootDelegator_To_SEQ Test DimCustomer2_Tests]" DTS:To="Package\SEQ Test DimCustomer2_Tests">
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{8231182A-ED5D-4CE7-A33C-CEDE38F77B2C}" DTS:EvalOp="1" DTS:Expression="@[User::SourceTaskName] == &quot;DFT Load DimAccount2&quot;" DTS:From="Package\RootDelegator" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_RootDelegator_To_DFT Load DimAccount2_Tests" DTS:refId="Package.PrecedenceConstraints[Constraint_RootDelegator_To_DFT Load DimAccount2_Tests]" DTS:To="Package\DFT Load DimAccount2_Tests">
+    </DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+  <DTS:Property DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{7BC93F12-B4AD-4E8C-BDDB-41671492FC32}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SourceTaskName">
+      <DTS:VariableValue DTS:DataType="8">_</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+</DTS:Executable>
